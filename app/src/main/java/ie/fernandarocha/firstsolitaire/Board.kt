@@ -4,10 +4,13 @@ import kotlin.random.Random
 
 class Board {
     var cards = ArrayList<Card>()
+    var tableau = Tableau(ArrayList<Pile>())
 
     init {
         createAllCards()
         cards.shuffle()
+        createTableauPiles()
+        printTableau()
     }
 
     private fun createAllCards() {
@@ -82,5 +85,30 @@ class Board {
         cards.add(Card(12, Suit.CLUB, "\uD83C\uDCDC"))
         cards.add(Card(13, Suit.CLUB, "\uD83C\uDCDD"))
     }
-    
+
+    private fun createTableauPiles(){
+        for(x in 0..6){
+            var pileCards = ArrayList<Card>()
+            for (y in 0..x) {
+                var random = Random.nextInt(0, cards.size)
+                pileCards.add(cards.get(random))
+                cards.removeAt(random)
+            }
+
+            var pile = Pile(x, x, pileCards)
+            tableau.piles.add(pile)
+        }
+    }
+
+    private fun printTableau(){
+        for (pile in tableau.piles){
+            println("tableau pile " + pile.position)
+            for (card in pile.cards){
+                print(card)
+            }
+            println()
+            println("----------------------------------------")
+        }
+    }
+
 }
