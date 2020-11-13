@@ -5,12 +5,15 @@ import kotlin.random.Random
 class Board {
     var cards = ArrayList<Card>()
     var tableau = Tableau(ArrayList<Pile>())
+    var foundations = ArrayList<Foundation>()
 
     init {
         createAllCards()
         cards.shuffle()
         createTableauPiles()
         printTableau()
+        createFoundations()
+
     }
 
     private fun createAllCards() {
@@ -111,4 +114,9 @@ class Board {
         }
     }
 
+    private fun createFoundations() {
+        for(x in 0..3){
+            foundations.add(Foundation(x, null, ArrayList<Card>()))
+        }
+    }
 }
