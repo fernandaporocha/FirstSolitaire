@@ -4,6 +4,7 @@ import kotlin.random.Random
 
 class Board {
     var cards = ArrayList<Card>()
+    var waste = ArrayList<Card>()
     var tableau = Tableau(ArrayList<Pile>())
     var foundations = ArrayList<Foundation>()
 
@@ -118,5 +119,30 @@ class Board {
         for(x in 0..3){
             foundations.add(Foundation(x, null, ArrayList<Card>()))
         }
+    }
+
+    fun dealNextStock(){
+        if (cards.size==0 && waste.size>0) {
+            cards = waste.clone() as ArrayList<Card>
+            waste.clear()
+        }else if (cards.size>0){
+            waste.add(cards[0])
+            cards.removeAt(0)
+        }
+    }
+
+    fun printStock(){
+        println("Cards on stock \n")
+        for(card in cards){
+            print(card)
+        }
+    }
+
+    fun printWaste(){
+        println("Cards on waste \n")
+        for(card in waste){
+            print(card)
+        }
+
     }
 }
