@@ -7,7 +7,8 @@ class Board {
 
     init {
         createAllCards()
-     }
+        cards.shuffle()
+    }
 
     private fun createAllCards() {
         println("createAllCards")
