@@ -26,21 +26,20 @@ class Board {
     }
 
     private fun createDiamondCards(){
-        cards.add(Card(1, Suit.DIAMOND, R.drawable.c1))
-        cards.add(Card(2, Suit.DIAMOND, R.drawable.c2))
-        cards.add(Card(3, Suit.DIAMOND, R.drawable.c3))
-        cards.add(Card(4, Suit.DIAMOND, R.drawable.c4))
-        cards.add(Card(5, Suit.DIAMOND, R.drawable.c5))
-        cards.add(Card(6, Suit.DIAMOND, R.drawable.c6))
-        cards.add(Card(7, Suit.DIAMOND, R.drawable.c7))
-        cards.add(Card(8, Suit.DIAMOND, R.drawable.c8))
-        cards.add(Card(9, Suit.DIAMOND, R.drawable.c9))
-        cards.add(Card(10, Suit.DIAMOND, R.drawable.c10))
-        cards.add(Card(11, Suit.DIAMOND, R.drawable.cj))
-        cards.add(Card(12, Suit.DIAMOND, R.drawable.cq))
-        cards.add(Card(13, Suit.DIAMOND, R.drawable.ck))
+        cards.add(Card(1, Suit.DIAMOND, R.drawable.d1))
+        cards.add(Card(2, Suit.DIAMOND, R.drawable.d2))
+        cards.add(Card(3, Suit.DIAMOND, R.drawable.d3))
+        cards.add(Card(4, Suit.DIAMOND, R.drawable.d4))
+        cards.add(Card(5, Suit.DIAMOND, R.drawable.d5))
+        cards.add(Card(6, Suit.DIAMOND, R.drawable.d6))
+        cards.add(Card(7, Suit.DIAMOND, R.drawable.d7))
+        cards.add(Card(8, Suit.DIAMOND, R.drawable.d8))
+        cards.add(Card(9, Suit.DIAMOND, R.drawable.d9))
+        cards.add(Card(10, Suit.DIAMOND, R.drawable.d10))
+        cards.add(Card(11, Suit.DIAMOND, R.drawable.dj))
+        cards.add(Card(12, Suit.DIAMOND, R.drawable.dq))
+        cards.add(Card(13, Suit.DIAMOND, R.drawable.dk))
     }
-
 
     private fun createSpadeCards(){
         cards.add(Card(1, Suit.SPADE, R.drawable.s1))
@@ -75,21 +74,21 @@ class Board {
     }
 
     private fun createClubCards(){
-        cards.add(Card(1, Suit.CLUB, R.drawable.d1))
-        cards.add(Card(2, Suit.CLUB, R.drawable.d2))
-        cards.add(Card(3, Suit.CLUB, R.drawable.d3))
-        cards.add(Card(4, Suit.CLUB, R.drawable.d4))
-        cards.add(Card(5, Suit.CLUB, R.drawable.d5))
-        cards.add(Card(6, Suit.CLUB, R.drawable.d6))
-        cards.add(Card(7, Suit.CLUB, R.drawable.d7))
-        cards.add(Card(8, Suit.CLUB, R.drawable.d8))
-        cards.add(Card(9, Suit.CLUB, R.drawable.d9))
-        cards.add(Card(10, Suit.CLUB, R.drawable.d10))
-        cards.add(Card(11, Suit.CLUB, R.drawable.dj))
-        cards.add(Card(12, Suit.CLUB, R.drawable.dq))
-        cards.add(Card(13, Suit.CLUB, R.drawable.dk))
+        cards.add(Card(1, Suit.CLUB, R.drawable.c1))
+        cards.add(Card(2, Suit.CLUB, R.drawable.c2))
+        cards.add(Card(3, Suit.CLUB, R.drawable.c3))
+        cards.add(Card(4, Suit.CLUB, R.drawable.c4))
+        cards.add(Card(5, Suit.CLUB, R.drawable.c5))
+        cards.add(Card(6, Suit.CLUB, R.drawable.c6))
+        cards.add(Card(7, Suit.CLUB, R.drawable.c7))
+        cards.add(Card(8, Suit.CLUB, R.drawable.c8))
+        cards.add(Card(9, Suit.CLUB, R.drawable.c9))
+        cards.add(Card(10, Suit.CLUB, R.drawable.c10))
+        cards.add(Card(11, Suit.CLUB, R.drawable.cj))
+        cards.add(Card(12, Suit.CLUB, R.drawable.cq))
+        cards.add(Card(13, Suit.CLUB, R.drawable.ck))
     }
-    
+
     private fun createTableauPiles(){
         for(x in 0..6){
             var pileCards = ArrayList<Card>()
