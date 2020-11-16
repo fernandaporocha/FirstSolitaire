@@ -117,7 +117,7 @@ class Board {
 
     private fun createFoundations() {
         for(x in 0..3){
-            foundations.add(Foundation(x, null, ArrayList<Card>()))
+            foundations.add(Foundation(x, ArrayList<Card>()))
         }
     }
 
