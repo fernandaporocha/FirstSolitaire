@@ -4,7 +4,7 @@ import kotlin.random.Random
 
 class Board {
     var cards = ArrayList<Card>()
-    var waste = ArrayList<Card>()
+    var waste = Pile(7,24, ArrayList<Card>())
     var tableau = Tableau(ArrayList<Pile>())
     var foundations = ArrayList<Foundation>()
 
@@ -94,6 +94,7 @@ class Board {
             var pileCards = ArrayList<Card>()
             for (y in 0..x) {
                 var random = Random.nextInt(0, cards.size)
+                cards.get(random).currentPile = x
                 pileCards.add(cards.get(random))
                 cards.removeAt(random)
             }
@@ -103,11 +104,11 @@ class Board {
         }
     }
 
-    private fun printTableau(){
+    fun printTableau(){
         for (pile in tableau.piles){
-            println("tableau pile " + pile.position)
-            for (card in pile.cards){
-                print(card)
+            println(" tableau pile " + pile.position)
+            for (card in pile.cards!!){
+                print(" $card");
             }
             println()
             println("----------------------------------------")
@@ -121,11 +122,11 @@ class Board {
     }
 
     fun dealNextStock(){
-        if (cards.size==0 && waste.size>0) {
-            cards = waste.clone() as ArrayList<Card>
-            waste.clear()
+        if (cards.size==0 && waste.cards?.size!! >0) {
+            cards = waste.cards?.clone() as ArrayList<Card>
+            waste.cards?.clear()
         }else if (cards.size>0){
-            waste.add(cards[0])
+            waste.cards?.add(cards[0])
             cards.removeAt(0)
         }
     }
@@ -139,7 +140,7 @@ class Board {
 
     fun printWaste(){
         println("Cards on waste \n")
-        for(card in waste){
+        for(card in waste.cards!!){
             print(card)
         }
 
@@ -148,10 +149,10 @@ class Board {
     fun getWaste(): Int {
         println("getWaste")
         println(waste)
-        if (waste.isEmpty()) {
+        if (waste.cards?.isEmpty()!!) {
             return 0
         }else {
-            return waste.last().image
+            return waste.cards!!.last().image
         }
     }
 
