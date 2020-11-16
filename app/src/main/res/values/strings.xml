@@ -3,4 +3,5 @@
     <string name="next_button">Next Card</string>
     <string name="stock_string">Stock Image</string>
     <string name="waste_image">Waste Image</string>
+    <string name="pile_0">Pile 0</string>
 </resources>

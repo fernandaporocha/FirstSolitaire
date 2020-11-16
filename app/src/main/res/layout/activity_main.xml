@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
     <ImageView
         android:id="@+id/stock_image"
-        android:layout_width="68dp"
-        android:layout_height="122dp"
+        android:layout_width="35dp"
+        android:layout_height="62dp"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/stock_string"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,8 +21,8 @@
 
     <ImageView
         android:id="@+id/waste_image"
-        android:layout_width="72dp"
-        android:layout_height="121dp"
+        android:layout_width="39dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/waste_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,4 +31,83 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.058"
         app:srcCompat="@drawable/blue_back" />
+
+    <ImageView
+        android:id="@+id/pile_0"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_1"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_2"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_3"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_4"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_5"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+    <ImageView
+        android:id="@+id/pile_6"
+        android:layout_width="42dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/pile_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pile_5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_back" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
