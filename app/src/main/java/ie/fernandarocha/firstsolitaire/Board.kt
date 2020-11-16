@@ -145,4 +145,15 @@ class Board {
         }
 
     }
+
+    fun getWaste(): Int {
+        println("getWaste")
+        println(waste)
+        if (waste.isEmpty()) {
+            return 0
+        }else {
+            return waste.last().image
+        }
+    }
+
 }
