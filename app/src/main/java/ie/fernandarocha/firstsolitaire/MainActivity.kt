@@ -2,6 +2,8 @@ package ie.fernandarocha.firstsolitaire
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +25,20 @@ class MainActivity : AppCompatActivity() {
 
         stockImage.setOnClickListener{ nextStockCard()}
         stockImage.setImageResource(R.drawable.purple_back)
+
+        var listener = View.OnTouchListener(function = { view, motionEvent ->
+
+            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
+
+                view.y = motionEvent.rawY - view.height/2
+                view.x = motionEvent.rawX - view.width/2
+            }
+
+            true
+
+        })
+
+        findViewById<ImageView>(R.id.waste_image).setOnTouchListener(listener)
     }
 
     private fun nextStockCard(){
