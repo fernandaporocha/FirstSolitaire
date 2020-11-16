@@ -33,6 +33,58 @@
         app:srcCompat="@drawable/blue_back" />
 
     <ImageView
+        android:id="@+id/foundation_0"
+        android:layout_width="39dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/waste_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toEndOf="@+id/stock_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@drawable/blue_back" />
+
+    <ImageView
+        android:id="@+id/foundation_1"
+        android:layout_width="39dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/waste_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toEndOf="@+id/stock_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@drawable/blue_back" />
+
+    <ImageView
+        android:id="@+id/foundation_2"
+        android:layout_width="39dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/waste_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.641"
+        app:layout_constraintStart_toEndOf="@+id/stock_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@drawable/blue_back" />
+
+    <ImageView
+        android:id="@+id/foundation_3"
+        android:layout_width="39dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/waste_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintStart_toEndOf="@+id/stock_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@drawable/blue_back" />
+
+    <ImageView
         android:id="@+id/pile_0"
         android:layout_width="42dp"
         android:layout_height="74dp"
