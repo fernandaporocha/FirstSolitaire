@@ -1,8 +1,9 @@
 package ie.fernandarocha.firstsolitaire
 
-class Card(val number: Int, val suit: Suit, val unicodeValue: String){
+class Card(val number: Int, val suit: Suit, val image: Int){
 
     override fun toString(): String {
-        return this.unicodeValue
+        return this.number.toString() + this.suit;
     }
+
 }
