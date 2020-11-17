@@ -4,16 +4,16 @@ import kotlin.random.Random
 
 class Board {
     var cards = ArrayList<Card>()
-    var waste = Pile(7,24, ArrayList<Card>())
+    var waste = Pile(7, ArrayList<Card>())
     var tableau = Tableau(ArrayList<Pile>())
-    var foundations = ArrayList<Foundation>()
+    var foundation = Foundation(ArrayList<Pile>())
 
     init {
         createAllCards()
         cards.shuffle()
         createTableauPiles()
         printTableau()
-        createFoundations()
+        createFoundationPiles()
 
     }
 
@@ -99,7 +99,7 @@ class Board {
                 cards.removeAt(random)
             }
 
-            var pile = Pile(x, x, pileCards)
+            var pile = Pile(x, pileCards)
             tableau.piles.add(pile)
         }
     }
@@ -115,9 +115,9 @@ class Board {
         }
     }
 
-    private fun createFoundations() {
-        for(x in 0..3){
-            foundations.add(Foundation(x, ArrayList<Card>()))
+    private fun createFoundationPiles() {
+        for(x in 8..11){
+            foundation.piles.add(Pile(x,  ArrayList<Card>()))
         }
     }
 
