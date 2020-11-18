@@ -367,6 +367,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun cleanCards(){
         layout?.removeAllViews()
-
+        id = 0
     }
 }
