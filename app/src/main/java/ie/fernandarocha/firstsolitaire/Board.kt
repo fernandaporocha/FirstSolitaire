@@ -90,12 +90,17 @@ class Board {
     }
 
     private fun createTableauPiles(){
+        println("createTableauPiles")
         for(x in 0..6){
             var pileCards = ArrayList<Card>()
             for (y in 0..x) {
                 var random = Random.nextInt(0, cards.size)
                 cards.get(random).currentPile = x
+                if (y < x){
+                    cards.get(random).upFaced = false
+                }
                 pileCards.add(cards.get(random))
+                println(cards.get(random).upFaced)
                 cards.removeAt(random)
             }
 
