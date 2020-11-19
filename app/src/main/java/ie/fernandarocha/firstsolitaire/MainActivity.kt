@@ -1,8 +1,11 @@
 package ie.fernandarocha.firstsolitaire
 
+import android.content.pm.ActivityInfo
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout : ConstraintLayout
 
     override fun onCreate(savedInstanceState : Bundle?) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
