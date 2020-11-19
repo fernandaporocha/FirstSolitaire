@@ -14,16 +14,16 @@ import kotlin.collections.ArrayList
 @ExperimentalStdlibApi
 class MainActivity : AppCompatActivity() {
 
-    lateinit var board : Board
-    var selectedCard : Card? = null
-    var manyCard: Card? = null
-    var id : Int = 0
+    private lateinit var board : Board
+    private var selectedCard : Card? = null
+    private var manyCard: Card? = null
+    private var id : Int = 0
     private lateinit var layout : ConstraintLayout
 
     override fun onCreate(savedInstanceState : Bundle?) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         board = Board()
         layout = findViewById(R.id.layout)
 
-        for (card in board.cards!!) {
+        for (card in board.cards) {
             println(card.toString())
         }
         generateDynamicTableau()
@@ -50,34 +50,43 @@ class MainActivity : AppCompatActivity() {
 
         println("selectCard")
         //Check if there are any selected card
-        if (selectedCard != null) {
+        if (pile.position==7){
+            selectedCard=pile.cards.last()
+        }else if (selectedCard != null) {
             println("1")
+            println("Selected card $selectedCard")
             //Check if the event came from the foundation
             if (pile.position < 8) {
                 println("2")
+                if(manyCard!=null) {
+                    println("5")
+                    println("many first")
+                    if (pile.position != selectedCard!!.currentPile) {
+                        println("6")
+                        println("many")
+                        //manyCard = manyC
+                        if ((pile.cards.isEmpty()&& manyCard!!.rank == 13)||(checkMarriageTableau(pile.cards.last(), manyCard!!))) {
+                            moveManyCards(pile, manyCard!!)
+                            manyCard = null
+                            selectedCard = null
+                        }
+                    }
+                }
                 //If the "to" pile is empty and the selected card is a king
-                if (pile.cards.isEmpty() && selectedCard!!.rank == 13) {
+                else if (pile.cards.isEmpty() && selectedCard!!.rank == 13) {
                     println("3")
                     moveCardTableau(pile, selectedCard!!)
+                    selectedCard = null
                 }
                 //If the "to" pile is not empty
                 else if (pile.cards.isNotEmpty()) {
                     println("4")
-                    if(manyCard!=null) {
-                        println("5")
-                        println("many first")
-                        if (pile.position != selectedCard!!.currentPile) {
-                            println("6")
-                            println("many")
-                            //manyCard = manyC
-                            if (checkMarriageTableau(pile.cards.last(), manyCard!!))
-                                 moveManyCards(pile, manyCard!!)
-                        }
-                    }else if (!selectedCard!!.equals(pile.cards?.last())) {
+                    if (selectedCard!! != pile.cards.last()) {
                         println("7")
                         if (checkMarriageTableau(pile.cards.last(), selectedCard!!)) {
                             println("8")
                             moveCardTableau(pile, selectedCard!!)
+                            selectedCard = null
                         }
                     }
                 }
@@ -90,22 +99,24 @@ class MainActivity : AppCompatActivity() {
                     if (checkMarriageFoundation(pile.cards, selectedCard!!)) {
                         println("11")
                         moveCardToFoundation(pile, selectedCard!!)
+                        selectedCard = null
                     }
                 } else if (checkMarriageTableau(pile.cards.last(), selectedCard!!)) {
                     println("12")
                     println("before move")
                     board.printTableau()
                     moveCardTableau(pile, selectedCard!!)
+                    selectedCard = null
                     println("after move")
                     board.printTableau()
                 }
             }
-            selectedCard = null;
+            selectedCard = null
         } else {
             println("13")
-            if (pile.cards != null && pile.cards.size > 0) {
+            if (pile.cards.isNotEmpty()) {
                 println("14")
-                selectedCard = pile.cards?.last()
+                selectedCard = pile.cards.last()
                 if (manyC!=null) {
                     println("15")
                     manyCard = manyC
@@ -118,11 +129,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun moveCardTableau(to: Pile, from: Card) {
-        var toPile: Int = to.position
-        var fromPile: Int = from.currentPile
+        val toPile: Int = to.position
+        val fromPile: Int = from.currentPile
         println("MoveCard")
         println("toPile $toPile")
-        println("to $to")
+        if(to.cards.isNotEmpty())
+            println("to ${to.cards.last()}")
         println("fromPile $fromPile")
         println("from $from")
         from.currentPile = toPile
@@ -149,8 +161,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun moveManyCards(to: Pile, from: Card) {
-        var toPile: Int = to.position
-        var fromPile: Int = from.currentPile
+        val toPile: Int = to.position
+        val fromPile: Int = from.currentPile
         println("MoveCard")
         println("toPile $toPile")
         println("to $to")
@@ -167,7 +179,7 @@ class MainActivity : AppCompatActivity() {
         }
         println(startIndex)
         println(endIndex)
-        var cardsToMove = ArrayList<Card>()
+        val cardsToMove = ArrayList<Card>()
         println("card that will be moved")
         for (i:Int in startIndex..endIndex){
             println(board.tableau.piles[fromPile].cards[i].rank)
@@ -197,8 +209,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun moveCardToFoundation(to: Pile, from: Card) {
-        var toPile: Int = to.position
-        var fromPile: Int = from.currentPile
+        val toPile: Int = to.position
+        val fromPile: Int = from.currentPile
         println("MoveCard")
         println("toPile $toPile")
         println("to $to")
@@ -276,7 +288,7 @@ class MainActivity : AppCompatActivity() {
         var listener = View.OnClickListener {  }
 
         for (pile: Pile in board.tableau.piles) {
-            var currentY = 250F
+            val currentY = 250F
 
             if (layout != null) {
                 if(pile.cards.isEmpty()){
@@ -313,15 +325,15 @@ class MainActivity : AppCompatActivity() {
         generateWaste()
 
         for (pile: Pile in board.foundation.piles) {
-            println("foundpile ${pile.getColumn()}")
-            var currentY = 20F
+            //println("foundpile ${pile.getColumn()}")
+            val currentY = 20F
 
             if (pile.cards.isEmpty()) {
-                var listener = View.OnClickListener { selectCard(pile, id) }
+                val listener = View.OnClickListener { selectCard(pile, id) }
                 addCardToLayout(pile.getColumn(), currentY, 0, R.drawable.yellow_back, listener)
             } else {
                 for (card: Card in pile.cards) {
-                    var listener = View.OnClickListener { selectCard(pile, id) }
+                    val listener = View.OnClickListener { selectCard(pile, id) }
                     addCardToLayout(pile.getColumn(), currentY, 0, card.image, listener)
                 }
             }
@@ -360,7 +372,8 @@ class MainActivity : AppCompatActivity() {
         imageView.setImageResource(image)
         imageView.x = x
         imageView.y = currentY
-        layout?.addView(imageView);
+        layout.addView(imageView)
+        println("id $id card $image")
         id++
 
     }
@@ -379,7 +392,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cleanCards(){
-        layout?.removeAllViews()
+        layout.removeAllViews()
         id = 0
     }
 }

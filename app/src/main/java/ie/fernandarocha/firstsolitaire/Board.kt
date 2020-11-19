@@ -4,9 +4,9 @@ import kotlin.random.Random
 
 class Board {
     var cards = ArrayList<Card>()
-    var waste = Pile(7, ArrayList<Card>())
-    var tableau = Tableau(ArrayList<Pile>())
-    var foundation = Foundation(ArrayList<Pile>())
+    var waste = Pile(7, ArrayList())
+    var tableau = Tableau(ArrayList())
+    var foundation = Foundation(ArrayList())
 
     init {
         createAllCards()
@@ -92,19 +92,19 @@ class Board {
     private fun createTableauPiles(){
         println("createTableauPiles")
         for(x in 0..6){
-            var pileCards = ArrayList<Card>()
+            val pileCards = ArrayList<Card>()
             for (y in 0..x) {
-                var random = Random.nextInt(0, cards.size)
-                cards.get(random).currentPile = x
+                val random = Random.nextInt(0, cards.size)
+                cards[random].currentPile = x
                 if (y < x){
-                    cards.get(random).upFaced = false
+                    cards[random].upFaced = false
                 }
-                pileCards.add(cards.get(random))
-                println(cards.get(random).upFaced)
+                pileCards.add(cards[random])
+                println(cards[random].upFaced)
                 cards.removeAt(random)
             }
 
-            var pile = Pile(x, pileCards)
+            val pile = Pile(x, pileCards)
             tableau.piles.add(pile)
         }
     }
@@ -112,8 +112,8 @@ class Board {
     fun printTableau(){
         for (pile in tableau.piles){
             println(" tableau pile " + pile.position)
-            for (card in pile.cards!!){
-                print(" $card");
+            for (card in pile.cards){
+                print(" $card")
             }
             println()
             println("----------------------------------------")
@@ -122,42 +122,17 @@ class Board {
 
     private fun createFoundationPiles() {
         for(x in 8..11){
-            foundation.piles.add(Pile(x,  ArrayList<Card>()))
+            foundation.piles.add(Pile(x,  ArrayList()))
         }
     }
 
     fun dealNextStock(){
-        if (cards.size==0 && waste.cards?.size!! >0) {
-            cards = waste.cards?.clone() as ArrayList<Card>
-            waste.cards?.clear()
+        if (cards.size==0 && waste.cards.size >0) {
+            cards = waste.cards.clone() as ArrayList<Card>
+            waste.cards.clear()
         }else if (cards.size>0){
-            waste.cards?.add(cards[0])
+            waste.cards.add(cards[0])
             cards.removeAt(0)
-        }
-    }
-
-    fun printStock(){
-        println("Cards on stock \n")
-        for(card in cards){
-            print(card)
-        }
-    }
-
-    fun printWaste(){
-        println("Cards on waste \n")
-        for(card in waste.cards!!){
-            print(card)
-        }
-
-    }
-
-    fun getWaste(): Int {
-        println("getWaste")
-        println(waste)
-        if (waste.cards?.isEmpty()!!) {
-            return 0
-        }else {
-            return waste.cards!!.last().image
         }
     }
 
