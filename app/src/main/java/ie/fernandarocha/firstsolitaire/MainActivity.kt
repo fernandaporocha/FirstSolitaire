@@ -112,8 +112,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        cleanCards()
-        generateDynamicTableau()
         if (manyC==null)
             manyCard = null
         println("saiu")
@@ -145,6 +143,9 @@ class MainActivity : AppCompatActivity() {
         else {
             board.foundation.piles[fromPile-8].cards.removeLast()
         }
+
+        cleanCards()
+        generateDynamicTableau()
     }
 
     private fun moveManyCards(to: Pile, from: Card) {
@@ -189,6 +190,10 @@ class MainActivity : AppCompatActivity() {
         }
         board.tableau.piles[to.position].cards.addAll(cardsToMove)
 
+
+        cleanCards()
+        generateDynamicTableau()
+
     }
 
     private fun moveCardToFoundation(to: Pile, from: Card) {
@@ -210,6 +215,7 @@ class MainActivity : AppCompatActivity() {
                 board.tableau.piles[fromPile].cards.last().upFaced = true
             println("Mudou o upfaced")
         }
+
         cleanCards()
         generateDynamicTableau()
     }
