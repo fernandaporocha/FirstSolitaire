@@ -7,6 +7,7 @@ class Board {
     var waste = Pile(7, ArrayList())
     var tableau = Tableau(ArrayList())
     var foundation = Foundation(ArrayList())
+    var id = 13
 
     init {
         createAllCards()
@@ -14,11 +15,9 @@ class Board {
         createTableauPiles()
         printTableau()
         createFoundationPiles()
-
     }
 
     private fun createAllCards() {
-        println("createAllCards")
         createDiamondCards()
         createSpadeCards()
         createHeartCards()
@@ -26,67 +25,67 @@ class Board {
     }
 
     private fun createDiamondCards(){
-        cards.add(Card(1, Suit.DIAMOND, R.drawable.d1))
-        cards.add(Card(2, Suit.DIAMOND, R.drawable.d2))
-        cards.add(Card(3, Suit.DIAMOND, R.drawable.d3))
-        cards.add(Card(4, Suit.DIAMOND, R.drawable.d4))
-        cards.add(Card(5, Suit.DIAMOND, R.drawable.d5))
-        cards.add(Card(6, Suit.DIAMOND, R.drawable.d6))
-        cards.add(Card(7, Suit.DIAMOND, R.drawable.d7))
-        cards.add(Card(8, Suit.DIAMOND, R.drawable.d8))
-        cards.add(Card(9, Suit.DIAMOND, R.drawable.d9))
-        cards.add(Card(10, Suit.DIAMOND, R.drawable.d10))
-        cards.add(Card(11, Suit.DIAMOND, R.drawable.dj))
-        cards.add(Card(12, Suit.DIAMOND, R.drawable.dq))
-        cards.add(Card(13, Suit.DIAMOND, R.drawable.dk))
+        cards.add(Card(1, Suit.DIAMOND, R.drawable.d1, 7, true, id++))
+        cards.add(Card(2, Suit.DIAMOND, R.drawable.d2, 7, true, id++))
+        cards.add(Card(3, Suit.DIAMOND, R.drawable.d3, 7, true, id++))
+        cards.add(Card(4, Suit.DIAMOND, R.drawable.d4, 7, true, id++))
+        cards.add(Card(5, Suit.DIAMOND, R.drawable.d5, 7, true, id++))
+        cards.add(Card(6, Suit.DIAMOND, R.drawable.d6, 7, true, id++))
+        cards.add(Card(7, Suit.DIAMOND, R.drawable.d7, 7, true, id++))
+        cards.add(Card(8, Suit.DIAMOND, R.drawable.d8, 7, true, id++))
+        cards.add(Card(9, Suit.DIAMOND, R.drawable.d9, 7, true, id++))
+        cards.add(Card(10, Suit.DIAMOND, R.drawable.d10, 7, true, id++))
+        cards.add(Card(11, Suit.DIAMOND, R.drawable.dj, 7, true, id++))
+        cards.add(Card(12, Suit.DIAMOND, R.drawable.dq, 7, true, id++))
+        cards.add(Card(13, Suit.DIAMOND, R.drawable.dk, 7, true, id++))
     }
 
     private fun createSpadeCards(){
-        cards.add(Card(1, Suit.SPADE, R.drawable.s1))
-        cards.add(Card(2, Suit.SPADE, R.drawable.s2))
-        cards.add(Card(3, Suit.SPADE, R.drawable.s3))
-        cards.add(Card(4, Suit.SPADE, R.drawable.s4))
-        cards.add(Card(5, Suit.SPADE, R.drawable.s5))
-        cards.add(Card(6, Suit.SPADE, R.drawable.s6))
-        cards.add(Card(7, Suit.SPADE, R.drawable.s7))
-        cards.add(Card(8, Suit.SPADE, R.drawable.s8))
-        cards.add(Card(9, Suit.SPADE, R.drawable.s9))
-        cards.add(Card(10, Suit.SPADE, R.drawable.s10))
-        cards.add(Card(11, Suit.SPADE, R.drawable.sj))
-        cards.add(Card(12, Suit.SPADE, R.drawable.sq))
-        cards.add(Card(13, Suit.SPADE, R.drawable.sk))
+        cards.add(Card(1, Suit.SPADE, R.drawable.s1, 7, true, id++))
+        cards.add(Card(2, Suit.SPADE, R.drawable.s2, 7, true, id++))
+        cards.add(Card(3, Suit.SPADE, R.drawable.s3, 7, true, id++))
+        cards.add(Card(4, Suit.SPADE, R.drawable.s4, 7, true, id++))
+        cards.add(Card(5, Suit.SPADE, R.drawable.s5, 7, true, id++))
+        cards.add(Card(6, Suit.SPADE, R.drawable.s6, 7, true, id++))
+        cards.add(Card(7, Suit.SPADE, R.drawable.s7, 7, true, id++))
+        cards.add(Card(8, Suit.SPADE, R.drawable.s8, 7, true, id++))
+        cards.add(Card(9, Suit.SPADE, R.drawable.s9, 7, true, id++))
+        cards.add(Card(10, Suit.SPADE, R.drawable.s10, 7, true, id++))
+        cards.add(Card(11, Suit.SPADE, R.drawable.sj, 7, true, id++))
+        cards.add(Card(12, Suit.SPADE, R.drawable.sq, 7, true, id++))
+        cards.add(Card(13, Suit.SPADE, R.drawable.sk, 7, true, id++))
     }
 
     private fun createHeartCards(){
-        cards.add(Card(1, Suit.HEART, R.drawable.h1))
-        cards.add(Card(2, Suit.HEART, R.drawable.h2))
-        cards.add(Card(3, Suit.HEART, R.drawable.h3))
-        cards.add(Card(4, Suit.HEART, R.drawable.h4))
-        cards.add(Card(5, Suit.HEART, R.drawable.h5))
-        cards.add(Card(6, Suit.HEART, R.drawable.h6))
-        cards.add(Card(7, Suit.HEART, R.drawable.h7))
-        cards.add(Card(8, Suit.HEART, R.drawable.h8))
-        cards.add(Card(9, Suit.HEART, R.drawable.h9))
-        cards.add(Card(10, Suit.HEART, R.drawable.h10))
-        cards.add(Card(11, Suit.HEART, R.drawable.hj))
-        cards.add(Card(12, Suit.HEART, R.drawable.hq))
-        cards.add(Card(13, Suit.HEART, R.drawable.hk))
+        cards.add(Card(1, Suit.HEART, R.drawable.h1, 7, true, id++))
+        cards.add(Card(2, Suit.HEART, R.drawable.h2, 7, true, id++))
+        cards.add(Card(3, Suit.HEART, R.drawable.h3, 7, true, id++))
+        cards.add(Card(4, Suit.HEART, R.drawable.h4, 7, true, id++))
+        cards.add(Card(5, Suit.HEART, R.drawable.h5, 7, true, id++))
+        cards.add(Card(6, Suit.HEART, R.drawable.h6, 7, true, id++))
+        cards.add(Card(7, Suit.HEART, R.drawable.h7, 7, true, id++))
+        cards.add(Card(8, Suit.HEART, R.drawable.h8, 7, true, id++))
+        cards.add(Card(9, Suit.HEART, R.drawable.h9, 7, true, id++))
+        cards.add(Card(10, Suit.HEART, R.drawable.h10, 7, true, id++))
+        cards.add(Card(11, Suit.HEART, R.drawable.hj, 7, true, id++))
+        cards.add(Card(12, Suit.HEART, R.drawable.hq, 7, true, id++))
+        cards.add(Card(13, Suit.HEART, R.drawable.hk, 7, true, id++))
     }
 
     private fun createClubCards(){
-        cards.add(Card(1, Suit.CLUB, R.drawable.c1))
-        cards.add(Card(2, Suit.CLUB, R.drawable.c2))
-        cards.add(Card(3, Suit.CLUB, R.drawable.c3))
-        cards.add(Card(4, Suit.CLUB, R.drawable.c4))
-        cards.add(Card(5, Suit.CLUB, R.drawable.c5))
-        cards.add(Card(6, Suit.CLUB, R.drawable.c6))
-        cards.add(Card(7, Suit.CLUB, R.drawable.c7))
-        cards.add(Card(8, Suit.CLUB, R.drawable.c8))
-        cards.add(Card(9, Suit.CLUB, R.drawable.c9))
-        cards.add(Card(10, Suit.CLUB, R.drawable.c10))
-        cards.add(Card(11, Suit.CLUB, R.drawable.cj))
-        cards.add(Card(12, Suit.CLUB, R.drawable.cq))
-        cards.add(Card(13, Suit.CLUB, R.drawable.ck))
+        cards.add(Card(1, Suit.CLUB, R.drawable.c1, 7, true, id++))
+        cards.add(Card(2, Suit.CLUB, R.drawable.c2, 7, true, id++))
+        cards.add(Card(3, Suit.CLUB, R.drawable.c3, 7, true, id++))
+        cards.add(Card(4, Suit.CLUB, R.drawable.c4, 7, true, id++))
+        cards.add(Card(5, Suit.CLUB, R.drawable.c5, 7, true, id++))
+        cards.add(Card(6, Suit.CLUB, R.drawable.c6, 7, true, id++))
+        cards.add(Card(7, Suit.CLUB, R.drawable.c7, 7, true, id++))
+        cards.add(Card(8, Suit.CLUB, R.drawable.c8, 7, true, id++))
+        cards.add(Card(9, Suit.CLUB, R.drawable.c9, 7, true, id++))
+        cards.add(Card(10, Suit.CLUB, R.drawable.c10, 7, true, id++))
+        cards.add(Card(11, Suit.CLUB, R.drawable.cj, 7, true, id++))
+        cards.add(Card(12, Suit.CLUB, R.drawable.cq, 7, true, id++))
+        cards.add(Card(13, Suit.CLUB, R.drawable.ck, 7, true, id++))
     }
 
     private fun createTableauPiles(){
@@ -100,7 +99,6 @@ class Board {
                     cards[random].upFaced = false
                 }
                 pileCards.add(cards[random])
-                println(cards[random].upFaced)
                 cards.removeAt(random)
             }
 
@@ -135,5 +133,4 @@ class Board {
             cards.removeAt(0)
         }
     }
-
 }
