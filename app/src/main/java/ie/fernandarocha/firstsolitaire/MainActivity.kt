@@ -186,6 +186,7 @@ class MainActivity : AppCompatActivity() {
             if(board.tableau.piles[fromPile].cards.isNotEmpty()) {
                 board.tableau.piles[fromPile].cards.last().upFaced = true
                 turnCardImage(board.tableau.piles[fromPile].cards.last())
+                addSendToFoundationEvent(board.tableau.piles[fromPile])
             }
         }
         //cards from waste pile
@@ -252,6 +253,7 @@ class MainActivity : AppCompatActivity() {
             if(board.tableau.piles[fromPile].cards.isNotEmpty()) {
                 board.tableau.piles[fromPile].cards.last().upFaced = true
                 turnCardImage(board.tableau.piles[fromPile].cards.last())
+                addSendToFoundationEvent(board.tableau.piles[fromPile])
             }
         }
     }
@@ -331,6 +333,26 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
+
+    private fun checkMarriageFoundation(card: Card, foundation: Pile): Boolean {
+        println("CheckmarriageFoundation")
+        println("card.rank ${card.rank}")
+        println("foundation.cards.isEmpty() ${foundation.cards.isEmpty()}")
+        if (foundation.cards.isNotEmpty()) {
+            println("card.suit == foundation.cards.last().suit ${card.suit == foundation.cards.last().suit}")
+            println("(card.rank +1) == foundation.cards.last().rank ${card.rank + 1 == foundation.cards.last().rank}")
+            println("foundation.cards.last().rank ${foundation.cards.last().rank}")
+        }
+        if (card.rank==1 && foundation.cards.isEmpty()){
+            return true
+        }else if (foundation.cards.isNotEmpty() &&
+                (card.suit == foundation.cards.last().suit)&&
+                (card.rank == (foundation.cards.last().rank)+1)){
+            return true
+        }
+        return false
+    }
+
     private fun checkSuit(suitTop: Suit, suitBottom: Suit): Boolean {
         println("checksuit")
         println(suitTop)
@@ -344,6 +366,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateDynamicTableau() {
         var listener: View.OnClickListener
+        var longListener: View.OnLongClickListener?
 
         for (pile: Pile in board.tableau.piles) {
             val currentY = 250F
@@ -351,16 +374,19 @@ class MainActivity : AppCompatActivity() {
             if (layout != null) {
                 if(pile.cards.isEmpty()){
                     listener = View.OnClickListener{ selectCard(pile, id) }
-                    addCardToLayout(pile.position, currentY, 0, R.drawable.gray_back, listener, null, id)
+                    addCardToLayout(pile.position, currentY, 0, R.drawable.gray_back, listener, null, id, null)
                     id++
                 }else {
                     for ((i, card: Card) in pile.cards.withIndex()) {
                         //println("counter for ${i+1}")
                         var img = 0
+                        longListener = null
                         if (card.upFaced){
                             if(i==pile.cards.size-1) {
                                 //println("no many ${card.rank} ${card.suit}")
                                 listener = View.OnClickListener { selectCard(pile, id) }
+                                println("longclick ${card.currentPile} $card")
+                                longListener = View.OnLongClickListener { trySendToFoundation(pile) }
                                 img = card.image
                             }else{
                                 //println("many ${card.rank} ${card.suit}")
@@ -371,7 +397,7 @@ class MainActivity : AppCompatActivity() {
                             listener = View.OnClickListener{ selectCard(pile, id) }
                             img = R.drawable.purple_back
                         }
-                        addCardToLayout(pile.position, currentY, i, img, listener, card, card.id)
+                        addCardToLayout(pile.position, currentY, i, img, listener, card, card.id, longListener)
                     }
                 }
 
@@ -380,7 +406,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun addCardToLayout(column: Int, y:Float, row: Int, image: Int, onClickListener: View.OnClickListener, card: Card?, givenId: Int){
+    private fun addCardToLayout(column: Int, y:Float, row: Int, image: Int, onClickListener: View.OnClickListener, card: Card?, givenId: Int, onLongClickListener: View.OnLongClickListener?){
         println("addCardToLayout")
         val display = windowManager.defaultDisplay
         val size = Point()
@@ -394,6 +420,13 @@ class MainActivity : AppCompatActivity() {
         var currentY = y
         if (row>0){
             currentY += (row*gapW).toFloat()
+        }
+        if(card!=null){
+            println("add card pile: ${card.currentPile} $card")
+        }
+
+        if(onLongClickListener!=null){
+            imageView.setOnLongClickListener(onLongClickListener)
         }
 
         imageView.id = givenId
@@ -438,8 +471,9 @@ class MainActivity : AppCompatActivity() {
         println("setWasteImageViews")
         for (card: Card in board.cards) {
             val listener = View.OnClickListener { selectCard(board.waste, id) }
+            val longListener = View.OnLongClickListener{ trySendToFoundation(board.waste) }
             println("setWasteImageViews ${card.id} $card")
-            addCardToLayout(1, 20F, 0, card.image, listener, card, card.id)
+            addCardToLayout(1, 20F, 0, card.image, listener, card, card.id, longListener)
             println("child ${layout.childCount}")
             layout.getViewById(card.id).visibility = View.GONE
         }
@@ -461,6 +495,7 @@ class MainActivity : AppCompatActivity() {
             val listener = View.OnClickListener { selectCard(board.waste, board.waste.cards.last().id) }
             layout.getViewById(board.waste.cards.last().id).setOnClickListener(listener)
             layout.getViewById(board.waste.cards.last().id).visibility=View.VISIBLE
+            addSendToFoundationEvent(board.waste)
             println(layout.getViewById(board.waste.cards.last().id).x)
             println(layout.getViewById(board.waste.cards.last().id).y)
 
@@ -474,14 +509,14 @@ class MainActivity : AppCompatActivity() {
         var listener = View.OnClickListener {
             nextStockCard()
         }
-        addCardToLayout(0, currentY, 0, R.drawable.purple_back, listener, null, 0)
+        addCardToLayout(0, currentY, 0, R.drawable.purple_back, listener, null, 0, null)
 
         for (pile: Pile in board.foundation.piles) {
             //println("foundpile ${pile.getColumn()}")
 
             if (pile.cards.isEmpty()) {
                 listener = View.OnClickListener { selectCard(pile, id) }
-                addCardToLayout(pile.getColumn(), currentY, 0, R.drawable.yellow_back, listener, null, id)
+                addCardToLayout(pile.getColumn(), currentY, 0, R.drawable.yellow_back, listener, null, id, null)
             }
             id++
         }
@@ -490,13 +525,20 @@ class MainActivity : AppCompatActivity() {
             //println("foundpile ${pile.getColumn()}")
             listener = View.OnClickListener { selectCard(pile, id) }
             println("create base T ${pile.position}")
-            addCardToLayout(pile.position, 250F, 0, R.drawable.gray_back, listener, null, id)
+            addCardToLayout(pile.position, 250F, 0, R.drawable.gray_back, listener, null, id, null)
             id++
         }
     }
 
-
-
+    private fun trySendToFoundation(pile: Pile):Boolean{
+        //println("trySendToFoundation - ${card.currentPile}")
+        for(foundation: Pile in board.foundation.piles){
+            if(checkMarriageFoundation(pile.cards.last(),foundation)){
+                moveCardToFoundation(foundation, pile.cards.last())
+            }
+        }
+        return true
+    }
 
     private fun checkAvailableMove(untilFinish: Boolean = false):Boolean{
         println("checkAvailableMove")
