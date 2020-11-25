@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         createBoardBase()
         generateDynamicTableau()
         setWasteImageViews()
+        var listener = View.OnLongClickListener { checkAvailableMove(false)}
+
+        layout.setOnLongClickListener(listener)
+        println("setou o evento no layout")
     }
 
     private fun nextStockCard() {
@@ -492,5 +496,92 @@ class MainActivity : AppCompatActivity() {
             addCardToLayout(pile.position, 250F, 0, R.drawable.gray_back, listener, null, id)
             id++
         }
+    }
+
+
+
+
+    private fun checkAvailableMove(untilFinish: Boolean = false):Boolean{
+        println("checkAvailableMove")
+        for (pile: Pile in board.tableau.piles) {
+            if (pile.cards.isNotEmpty()){
+                for(foundation: Pile in board.foundation.piles){
+                    if(checkMarriageFoundation(pile.cards.last(),foundation)){
+                        moveCardToFoundation(foundation, pile.cards.last())
+                        if (!untilFinish)
+                            return true
+                    }
+                }
+
+                for(pileTableau: Pile in board.tableau.piles){
+                    if(pile!=pileTableau){
+                        if(pileTableau.cards.isNotEmpty()){
+                            for(card: Card in pile.cards) {
+                                if (card.upFaced && card != pile.cards.last()) {
+                                    if ((pileTableau.cards.isEmpty() && card.rank == 13) || (checkMarriageTableau(pileTableau.cards.last(), card))) {
+                                        moveManyCards(pileTableau, card)
+                                        println("moveMany <3")
+                                        return true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for(pileTableau: Pile in board.tableau.piles){
+                    if(pile!=pileTableau){
+                        if(pileTableau.cards.isNotEmpty()){
+                            if(checkMarriageTableau(pile.cards.last(), pileTableau.cards.last())){
+                                moveCardTableau(pile, pileTableau.cards.last())
+                                if (!untilFinish)
+                                    return true
+                            }
+                        }else if(pileTableau.cards.isEmpty() && pile.cards.last().rank == 13){
+                            moveCardTableau(pileTableau, pile.cards.last())
+                            if (!untilFinish)
+                                return true
+                        }
+                    }
+                }
+            }
+        }
+
+        if (board.waste.cards.isNotEmpty()) {
+            var card = board.waste.cards.last()
+            println("waste card $card")
+            for (foundation: Pile in board.foundation.piles) {
+                if (checkMarriageFoundation(card, foundation)) {
+                    println("movewaste found")
+                    moveCardToFoundation(foundation, card)
+                    if (!untilFinish)
+                        return true
+                }
+            }
+
+            for (pileTableau: Pile in board.tableau.piles) {
+                //if ((pileTableau.cards.isNotEmpty()&& (checkMarriageTableau(pileTableau.cards.last(), card))) ||
+                //                (pileTableau.cards.isEmpty()&&card.rank==13)){
+                        //moveCardTableau(board.waste, pileTableau.cards.last())
+                if (pileTableau.cards.isNotEmpty()&& (checkMarriageTableau(pileTableau.cards.last(), card))){
+                    println("movewaste 1")
+                    moveCardTableau(pileTableau, card )
+                    if (!untilFinish)
+                        return true
+                }else if (pileTableau.cards.isEmpty()&&card.rank==13){
+                    println("movewaste 2")
+                    moveCardTableau(pileTableau, card )
+                    if (!untilFinish)
+                        return true
+                }
+            }
+        }
+        return true
+    }
+
+    private fun addSendToFoundationEvent(pile: Pile){
+        //println("addSendToFoundationEvent currentpile ${card.currentPile}" )
+        var listener = View.OnLongClickListener { trySendToFoundation(pile) }
+        layout.getViewById(pile.cards.last().id).setOnLongClickListener(listener)
     }
 }
