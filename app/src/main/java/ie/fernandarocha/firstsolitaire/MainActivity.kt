@@ -202,10 +202,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun turnCardImage(card:Card){
-        var image:ImageView = layout.getViewById(card.id) as ImageView
-        layout.removeView(image)
-        image.setImageResource(card.image)
-        layout.addView(image)
+        (layout.getViewById(card.id) as ImageView).setImageResource(card.image)
     }
 
     private fun moveManyCards(to: Pile, from: Card) {
